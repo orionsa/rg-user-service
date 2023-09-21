@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   BadRequestException,
+  Query,
 } from '@nestjs/common';
 
 import { UsersService } from './users.service';
@@ -19,6 +20,11 @@ export class UsersController {
   @Get()
   getAllUser(): Promise<User[]> {
     return this.userService.getAllUsers();
+  }
+
+  @Get('getByEmail')
+  getUserByEmail(@Query('email') email: string): Promise<User> {
+    return this.userService.getUserByEmail(email);
   }
 
   @Get(':id')
