@@ -3,7 +3,6 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { genSalt, hash } from 'bcrypt';
 
-// import { UserInterface } from './interfaces/users.interface';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './user.entity';
@@ -14,7 +13,6 @@ export class UsersService {
     @InjectRepository(User)
     private usersRepository: Repository<User>,
   ) {}
-  // private readonly users: User[] = [];
 
   async getUser(id: number): Promise<User> {
     try {
