@@ -49,8 +49,8 @@ export class UsersService {
         throw new NotFoundException('User not found');
       }
 
-      user.firstName = userDto.firstName || user.firstName;
-      user.lastName = userDto.lastName || user.lastName;
+      user.first_name = userDto.firstName || user.first_name;
+      user.last_name = userDto.lastName || user.last_name;
       await this.usersRepository.update(id, user);
       return user;
     } catch (error) {
