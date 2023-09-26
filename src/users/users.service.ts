@@ -24,6 +24,7 @@ export class UsersService {
       if (!user) {
         throw new NotFoundException('User not found');
       }
+      delete user.refresh_token;
       return user;
     } catch (error) {
       throw error;
@@ -74,6 +75,33 @@ export class UsersService {
         throw new NotFoundException('User not found');
       }
       return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async updateRefreshToken(id: number, refreshToken: string): Promise<void> {
+    try {
+      const user = await this.usersRepository.findOneBy({ id });
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+      const salt = await genSalt();
+      const hashedRefreshToken = await hash(refreshToken, salt);
+      user.refresh_token = hashedRefreshToken;
+      await this.usersRepository.update(id, user);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getRefreshToken(id: number): Promise<string> {
+    try {
+      const user = await this.usersRepository.findOneBy({ id });
+      if (!user) {
+        throw new NotFoundException('User not found');
+      }
+      return user.refresh_token;
     } catch (error) {
       throw error;
     }

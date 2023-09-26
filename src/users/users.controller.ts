@@ -52,4 +52,30 @@ export class UsersController {
       throw error;
     }
   }
+
+  @Patch(':id/refreshToken')
+  updateRefreshToken(
+    @Param('id') id: number,
+    @Body('refreshToken') refreshToken: string,
+  ): Promise<void> {
+    try {
+      /**
+       * @TODO
+       * Remove this route and replace it with messaging logic once
+       * the messaging service is implemented
+       * */
+      return this.userService.updateRefreshToken(id, refreshToken);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  @Get(':id/refreshToken')
+  getRefreshToken(@Param('id') id: number): Promise<string> {
+    try {
+      return this.userService.getRefreshToken(id);
+    } catch (error) {
+      throw error;
+    }
+  }
 }
